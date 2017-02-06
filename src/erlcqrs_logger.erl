@@ -1,4 +1,4 @@
--module(logger).
+-module(erlcqrs_logger).
 -compile([export_all]).
 
 %% Public API

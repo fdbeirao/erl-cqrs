@@ -1,4 +1,4 @@
--module(string_receiver).
+-module(erlcqrs_string_receiver).
 -behavior(gen_server).
 -define(SERVER, ?MODULE).
 
