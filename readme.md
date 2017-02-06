@@ -33,6 +33,14 @@ ok.
 
 The example above tries to be as minimal as possible. It does not use HTTP, it does not use JSON, it does not use telnet, etc. Those are implementation details, which should be abstracted away from the requirements of the system. They will be contemplated when the time is right.
 
+## *"Domain"* events
+
+In this obviously fictitious "domain" we will have multiple events. I am going to try be as impartial as possible in the definition of these domain events (which should result from multiple [event storming](http://ziobrando.blogspot.nl/2013/11/introducing-event-storming.html) sessions). The domain events I imagine are:
+* String inputted;
+* Input buffer exceeded.
+
+For now, these seem to be concise enough.
+
 ## Obtaining information from the system
 
 One of the great benefits from CQRS is that you get to separate the strategies you used to guarantee the consistency of your system, from the techniques of obtaining information from your system.
