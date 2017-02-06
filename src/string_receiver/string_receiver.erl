@@ -60,4 +60,17 @@ handle_push_string("carriageReturn", #state{ char_count = CharCount } = State) w
 handle_push_string(_String, #state{ char_count = CharCount } = State) when CharCount >= 100 ->
   { { error, "expecting carriage return" }, State };
 handle_push_string(String, #state{ char_count = CharCount } = State) ->
-  { ok, State#state{ char_count = CharCount + length(String) } }.
+  case validate_one_uppercase_per_word(String) of
+    true -> { ok, State#state{ char_count = CharCount + length(String) } };
+    _ -> { { error, "each word can have at most one uppercase letter"}, State }
+  end.
+
+validate_one_uppercase_per_word(String) ->
+  Words = string:tokens(String, " "),
+  not lists:any(fun word_contains_more_than_one_uppercase_letter/1, Words).
+
+word_contains_more_than_one_uppercase_letter(String) ->
+  uppercase_chars_in_string(String) > 1.
+
+uppercase_chars_in_string(String) ->
+  length(lists:filter(fun(Char) -> Char >= "A" andalso Char =< "Z" end, String)).
