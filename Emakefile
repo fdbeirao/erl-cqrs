@@ -6,3 +6,4 @@
 
 { 'src/*', [debug_info, report, { outdir, "ebin" } ] }.
 { 'src/string_receiver/*', [debug_info, report, { outdir, "ebin" } ] }.
+{ 'test/*', [report, { outdir, "ebin" } ] }.

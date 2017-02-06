@@ -6,7 +6,7 @@
 -export([start_link/0]).
 
 % Public API
--export([push_string/1]).
+-export([push_string/1, stop/0]).
 
 % gen_server callbacks
 -export([init/1,
@@ -26,6 +26,9 @@ start_link() ->
 %% Public API
 push_string(String) ->
   gen_server:call(?SERVER, { push_string, String }).
+
+stop() ->
+  gen_server:stop(?SERVER).
 
 %% gen_server callbacks
 
