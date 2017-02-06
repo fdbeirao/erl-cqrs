@@ -16,7 +16,7 @@
          terminate/2,
          code_change/3]).
         
--record(state, { }).
+-record(state, { char_count = 0 }).
 
 % supervision callbacks
 start_link() ->
@@ -33,8 +33,8 @@ init(_InitialInfo) ->
   { ok, #state{} }.
 
 handle_call({ push_string, String }, _From, State) ->
-  io:format("Received string [~p]~n", [String]), % debug, remove this line
-  {reply, ok, State };
+  { Reply, NewState } = handle_push_string(String, State),
+  { reply, Reply, NewState };
 
 handle_call(Other, From, State) ->
   logger:unexpected_message_on_handle_call(?MODULE, Other, From),
@@ -53,3 +53,11 @@ terminate(_Reason, _State) ->
 
 code_change(_PreviousVersion, State, _Extra) ->
   {ok, State}.
+
+%% private server functions
+handle_push_string("carriageReturn", #state{ char_count = CharCount } = State) when CharCount >= 100 ->
+  { ok, State#state{ char_count = 0 } };
+handle_push_string(_String, #state{ char_count = CharCount } = State) when CharCount >= 100 ->
+  { { error, "expecting carriage return" }, State };
+handle_push_string(String, #state{ char_count = CharCount } = State) ->
+  { ok, State#state{ char_count = CharCount + length(String) } }.
