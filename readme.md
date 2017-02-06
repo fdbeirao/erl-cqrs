@@ -54,7 +54,7 @@ For this repository, we have different needs for data. They are obviously fictit
   * The input `hello world` has 2 **words**;
   * The input `hello-cruel+world` has 1 **word**;
   * The input `The number 5 is awesome` has 5 **words**;
-  * Basically only a space ([ascii](http://ascii.cl/) 32) splits words appart;
+  * Basically only a space ([ascii](http://ascii.cl/) 32) splits words apart;
 * Knowing how many input sessions have occurred so far:
   * An input session ends once 100 or more characters have been inputed into the system;
   * An input session starts with the `carriageReturn` string;
